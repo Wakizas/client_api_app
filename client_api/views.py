@@ -2,6 +2,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.generics import CreateAPIView
 from rest_framework.generics import UpdateAPIView
 from rest_framework.generics import DestroyAPIView
+from rest_framework import filters
 from .models import Client
 from .serializers import ClientSerializer
 
@@ -9,6 +10,8 @@ from .serializers import ClientSerializer
 class ClientListViews(ListAPIView):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['nom', 'prenoms', 'matricule']
 
 #Endpoint for (C)reate Client
 class ClientAddViews(CreateAPIView):
